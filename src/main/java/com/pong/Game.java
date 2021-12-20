@@ -35,54 +35,48 @@ public class Game extends Canvas
     private void canvasSetup() 
     {
         gc = this.getGraphicsContext2D();
+        this.setWidth(WIDTH);
+        this.setHeight(HEIGHT);
     }
 
-    AnimationTimer gameLoop = new AnimationTimer() {
+    AnimationTimer gameLoop = new AnimationTimer() 
+    {
+
+        long lastFrameTime = System.nanoTime();
+        double amountOfTicks = 144.0;
+        double nanoSeconds = 1000000000 / amountOfTicks;
+        double secondsSinceLastFrame = 0;
+        long timer = System.currentTimeMillis();
+        int frames = 0;
 
         @Override
         public void handle(long now)
         {
-            // this.requestFocus();
-    
-            long lastFrameTime = System.nanoTime();
-            double amountOfTicks = 60.0;
-            double nanoSeconds = 1000000000 / amountOfTicks;
-            double secondsSinceLastFrame = 0;
-            long timer = System.currentTimeMillis();
-            int frames = 0;
-    
-            while (isRunning)
+
+            if (isRunning) 
             {
+                draw();
+
                 secondsSinceLastFrame += (now - lastFrameTime) / nanoSeconds;
                 lastFrameTime = now;
-    
+
                 while (secondsSinceLastFrame > 0)
                 {
                     update();
-                    // draw();
                     secondsSinceLastFrame--;
                 }
-    
-                if (isRunning) 
-                {
-                    draw();
-                }
-    
-                frames++;
-    
-                if (System.currentTimeMillis() - timer > 1000)
-                {
-                    timer += 1000;
-                    System.out.println("FPS: " + frames);
-                    frames = 0;
-                }
+
+            }
+
+            frames++;
+            if (System.currentTimeMillis() - timer > 1000)
+            {
+                timer += 1000;
+                System.out.println("FPS: " + frames);
+                frames = 0;
             }
         }
     };
-
-
-    
-
 
     private void draw()
     {
@@ -92,8 +86,7 @@ public class Game extends Canvas
     private void drawBackground()
      {
         gc.setFill(Color.CADETBLUE);
-        gc.fillRect(10, 10, 60, 60);
-        System.out.println("Background drawn");
+        gc.fillRect((WIDTH/2) - 5, (HEIGHT/2) + 5, 50, 50);
     }
 
     private void update() 
