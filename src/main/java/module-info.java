@@ -1,4 +1,4 @@
 module com.pong {
-    requires javafx.controls;
+    requires transitive javafx.controls;
     exports com.pong;
 }
