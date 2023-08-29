@@ -57,15 +57,6 @@ public class Game extends Canvas
             {
                 draw();
                 update();
-
-                // secondsSinceLastFrame += (now - lastFrameTime) / nanoSeconds;
-                // lastFrameTime = now;
-
-                // while (secondsSinceLastFrame > 0)
-                // {
-                //     update();
-                //     secondsSinceLastFrame--;
-                // }
             }
 
             frames++;
